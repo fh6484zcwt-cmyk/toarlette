@@ -1,0 +1,895 @@
+<?php
+// ------------------------------------------------------
+//  Feliz cumpleaños, Arlette 🌻
+//  No requiere base de datos.
+// ------------------------------------------------------
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#fffaf0">
+
+    <title>Para Arlette 🌻</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: 'DM Sans', sans-serif;
+            color: #51442f;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(255, 223, 110, .28), transparent 35%),
+                radial-gradient(circle at 85% 80%, rgba(190, 216, 144, .25), transparent 35%),
+                linear-gradient(135deg, #fffdf7 0%, #fff8dc 100%);
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        /* ==============================
+           FONDO
+        ============================== */
+
+        .background-glow {
+            position: fixed;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: .25;
+            pointer-events: none;
+        }
+
+        .glow-one {
+            background: #ffd84d;
+            top: -180px;
+            left: -180px;
+        }
+
+        .glow-two {
+            background: #b9d487;
+            bottom: -180px;
+            right: -180px;
+        }
+
+        /* ==============================
+           PANTALLAS
+        ============================== */
+
+        .screen {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(1.03);
+            transition:
+                opacity .8s ease,
+                visibility .8s ease,
+                transform .8s ease;
+        }
+
+        .screen.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+
+        .content {
+            width: 100%;
+            max-width: 650px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        /* ==============================
+           GIRASOL
+        ============================== */
+
+        .sunflower {
+            position: relative;
+            width: 170px;
+            height: 170px;
+            margin: 0 auto 35px;
+            animation: floatFlower 4s ease-in-out infinite;
+        }
+
+        .petal {
+            position: absolute;
+            width: 55px;
+            height: 88px;
+            background:
+                linear-gradient(
+                    180deg,
+                    #ffe568,
+                    #f7bf2c
+                );
+            border-radius: 50% 50% 48% 48%;
+            left: 57px;
+            top: 2px;
+            transform-origin: 50% 83px;
+            box-shadow:
+                inset 0 -6px 8px rgba(183, 120, 0, .08),
+                0 4px 8px rgba(192, 144, 34, .08);
+        }
+
+        .petal:nth-child(1) { transform: rotate(0deg); }
+        .petal:nth-child(2) { transform: rotate(30deg); }
+        .petal:nth-child(3) { transform: rotate(60deg); }
+        .petal:nth-child(4) { transform: rotate(90deg); }
+        .petal:nth-child(5) { transform: rotate(120deg); }
+        .petal:nth-child(6) { transform: rotate(150deg); }
+        .petal:nth-child(7) { transform: rotate(180deg); }
+        .petal:nth-child(8) { transform: rotate(210deg); }
+        .petal:nth-child(9) { transform: rotate(240deg); }
+        .petal:nth-child(10) { transform: rotate(270deg); }
+        .petal:nth-child(11) { transform: rotate(300deg); }
+        .petal:nth-child(12) { transform: rotate(330deg); }
+
+        .flower-center {
+            position: absolute;
+            width: 86px;
+            height: 86px;
+            border-radius: 50%;
+            top: 42px;
+            left: 42px;
+            z-index: 5;
+
+            background:
+                radial-gradient(circle at 35% 30%, #8b6736, transparent 4%),
+                radial-gradient(circle at 65% 60%, #65451f, transparent 4%),
+                radial-gradient(circle at 50% 50%, #7a5429, #4c3219);
+
+            border: 5px solid #7b5429;
+
+            box-shadow:
+                inset 0 0 12px rgba(0,0,0,.15),
+                0 3px 10px rgba(92, 65, 27, .15);
+        }
+
+        @keyframes floatFlower {
+            0%, 100% {
+                transform: translateY(0) rotate(-2deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(2deg);
+            }
+        }
+
+        /* ==============================
+           TEXTOS
+        ============================== */
+
+        .small-text {
+            font-size: .95rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #a17e32;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        h1,
+        h2 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 10vw, 5.3rem);
+            line-height: .98;
+            color: #5f4a24;
+            margin-bottom: 20px;
+        }
+
+        h1 span {
+            color: #d6a51d;
+        }
+
+        h2 {
+            font-size: clamp(2.3rem, 8vw, 4.2rem);
+            color: #654d23;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            max-width: 480px;
+            margin: 0 auto 30px;
+            font-size: 1.08rem;
+            line-height: 1.8;
+            color: #77664a;
+        }
+
+        /* ==============================
+           BOTONES
+        ============================== */
+
+        .btn {
+            border: none;
+            padding: 16px 28px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+
+            color: #5d4517;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffe37a,
+                    #f6c744
+                );
+
+            box-shadow:
+                0 12px 30px rgba(211, 165, 37, .22);
+
+            transition:
+                transform .25s ease,
+                box-shadow .25s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow:
+                0 16px 35px rgba(211, 165, 37, .30);
+        }
+
+        .btn:active {
+            transform: scale(.97);
+        }
+
+        /* ==============================
+           TARJETA
+        ============================== */
+
+        .letter {
+            position: relative;
+
+            background:
+                rgba(255, 255, 255, .76);
+
+            border:
+                1px solid rgba(220, 184, 79, .30);
+
+            border-radius: 28px;
+
+            padding:
+                45px 35px;
+
+            max-width: 570px;
+            margin: auto;
+
+            backdrop-filter:
+                blur(15px);
+
+            box-shadow:
+                0 25px 70px rgba(126, 96, 33, .12);
+
+            overflow: hidden;
+        }
+
+        .letter::before {
+            content: "🌻";
+            position: absolute;
+            font-size: 100px;
+            opacity: .06;
+            right: -20px;
+            bottom: -25px;
+            transform: rotate(-15deg);
+        }
+
+        .letter-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .letter p {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: #675a45;
+        }
+
+        .signature {
+            margin-top: 25px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem !important;
+            color: #a37b1d !important;
+        }
+
+        /* ==============================
+           PETALOS DEL FONDO
+        ============================== */
+
+        .falling-petal {
+            position: fixed;
+            top: -30px;
+            width: 14px;
+            height: 25px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffe477,
+                    #f5be32
+                );
+
+            border-radius:
+                80% 20% 80% 20%;
+
+            pointer-events: none;
+            z-index: 2;
+
+            animation:
+                fall linear forwards;
+        }
+
+        @keyframes fall {
+            from {
+                transform:
+                    translateY(-50px)
+                    rotate(0deg);
+                opacity: .8;
+            }
+
+            to {
+                transform:
+                    translateY(110vh)
+                    rotate(500deg);
+                opacity: .1;
+            }
+        }
+
+        /* ==============================
+           CONFETI
+        ============================== */
+
+        .confetti {
+            position: fixed;
+            top: -20px;
+            width: 10px;
+            height: 16px;
+            pointer-events: none;
+            z-index: 100;
+
+            animation:
+                confettiFall 4s linear forwards;
+        }
+
+        @keyframes confettiFall {
+
+            0% {
+                transform:
+                    translateY(-20px)
+                    rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform:
+                    translateY(110vh)
+                    rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* ==============================
+           PEQUEÑOS GIRASOLES
+        ============================== */
+
+        .corner-flower {
+            position: fixed;
+            font-size: 55px;
+            opacity: .18;
+            pointer-events: none;
+        }
+
+        .corner-1 {
+            left: -5px;
+            bottom: 10px;
+            transform: rotate(25deg);
+        }
+
+        .corner-2 {
+            right: -5px;
+            top: 10px;
+            transform: rotate(-25deg);
+        }
+
+        /* ==============================
+           ANIMACIÓN DE TEXTO
+        ============================== */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: revealText 1s forwards;
+        }
+
+        .delay-1 {
+            animation-delay: .3s;
+        }
+
+        .delay-2 {
+            animation-delay: .7s;
+        }
+
+        .delay-3 {
+            animation-delay: 1.1s;
+        }
+
+        @keyframes revealText {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ==============================
+           RESPONSIVE
+        ============================== */
+
+        @media (max-width: 600px) {
+
+            .sunflower {
+                transform: scale(.82);
+                margin-bottom: 15px;
+            }
+
+            .letter {
+                padding: 35px 23px;
+            }
+
+            .letter p {
+                font-size: .98rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+        }
+
+/* ==============================
+   GIF FINAL
+============================== */
+
+.birthday-gif {
+    display: block;
+
+    width: 100%;
+    max-width: 380px;
+
+    margin: 25px auto;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 20px 50px
+        rgba(126, 96, 33, .18);
+
+    animation:
+        gifEntrance 1s ease forwards;
+}
+
+.final-message {
+    margin-top: 20px;
+}
+
+@keyframes gifEntrance {
+
+    from {
+        opacity: 0;
+        transform:
+            scale(.8)
+            translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            scale(1)
+            translateY(0);
+    }
+}
+
+    </style>
+</head>
+
+<body>
+
+<div class="background-glow glow-one"></div>
+<div class="background-glow glow-two"></div>
+
+<div class="corner-flower corner-1">🌻</div>
+<div class="corner-flower corner-2">🌻</div>
+
+
+<!-- ==========================================
+     PANTALLA 1
+=========================================== -->
+
+<section class="screen active" id="screen1">
+
+    <div class="content">
+
+        <div class="sunflower">
+
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+
+            <div class="flower-center"></div>
+
+        </div>
+
+        <div class="small-text reveal">
+            5 de octubre
+        </div>
+
+        <h1 class="reveal delay-1">
+            Hola, <span>Arlette</span>
+        </h1>
+
+        <p class="subtitle reveal delay-2">
+            Hoy es un día muy especial, y la verdad no quería 
+            dejar pasar esta oportunidad para felicitarte. 
+            (Aunque sea una manera poco convencional) 
+
+        </p>
+
+        <button
+            class="btn reveal delay-3"
+            onclick="startSurprise()"
+        >
+            Hice esto para ti: 🌻
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ==========================================
+     PANTALLA 2
+=========================================== -->
+
+<section class="screen" id="screen2">
+
+    <div class="content">
+
+        <div class="small-text">
+            Hoy se celebra a alguien especial
+        </div>
+
+        <h2>
+            ¡Feliz cumpleaños,<br>
+            Arlette! 🎂
+        </h2>
+
+        <p class="subtitle">
+            Espero que hoy tengas un día muy bonito,
+            que te consientan mucho y que este nuevo año
+            de tu vida venga acompañado de momentos,
+            personas y experiencias que te hagan muy feliz.
+        </p>
+
+        <button
+            class="btn"
+            onclick="nextScreen(3)"
+        >
+            Pero espera... 👀
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ==========================================
+     PANTALLA 3
+=========================================== -->
+
+<section class="screen" id="screen3">
+
+    <div class="content">
+
+        <div class="letter">
+
+            <div class="letter-icon">
+                🌻
+            </div>
+
+            <h2>
+                Una última cosa...
+            </h2>
+
+            <p>
+                Quería felicitarte de una manera un poquito diferente.
+                No sabía exactamente qué hacer, así que decidí festejarte aunque sea de lejitos.
+                Te aprecio mucho.  
+            </p>
+
+            <br>
+
+            <p>
+                Espero que este nuevo año te traiga muchas cosas buenas,
+                nuevas experiencias, muchas razones para sonreír
+                y sobre todo momentos que realmente disfrutes. 
+            </p>
+
+            <br>
+
+            <p>
+                Que tengas un cumpleaños increíble, Arlette la chica "mas dulce" que conocí este año. 🌻
+            </p>
+
+            <p class="signature">
+                — Atte: Peter Parker
+            </p>
+
+            <br>
+
+                <button
+                    class="btn"
+                    onclick="nextScreen(4)"
+>
+                        ¡TE DESEO LO MEJOR!... 🌻
+                </button>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- MÚSICA DE FONDO -->
+<audio id="birthdayMusic" preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+
+<!-- ==========================================
+     PANTALLA 4 - GIF FINAL
+=========================================== -->
+
+<section class="screen" id="screen4">
+
+    <div class="content">
+
+        <div class="small-text">
+            Ahora sí...
+        </div>
+
+        <h2>
+            ¡Feliz cumpleaños! 🌻
+        </h2>
+
+        <img
+            src="cum.gif"
+            alt="Feliz cumpleaños"
+            class="birthday-gif"
+        />
+
+        <p class="subtitle final-message">
+            Espero que disfrutes muchísimo tu día, Arlette. 🎂
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- MÚSICA DE FONDO -->
+<audio id="birthdayMusic" preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+
+<script>
+
+    /* ==========================================
+   INICIAR SORPRESA + MÚSICA
+========================================== */
+
+    const INICIO = 20; // 0:20
+    const FINAL = 60;  // 1:00
+
+    function startSurprise() {
+
+    const music = document.getElementById('birthdayMusic');
+
+    music.volume = 0.45;
+
+    // La canción comienza en 0:20
+    music.currentTime = INICIO;
+
+    music.play().catch(error => {
+        console.log("No se pudo reproducir el audio:", error);
+    });
+
+    nextScreen(2);
+}
+
+
+/* ==========================================
+   BUCLE DE MÚSICA 0:20 - 1:00
+========================================== */
+
+const birthdayMusic = document.getElementById('birthdayMusic');
+
+birthdayMusic.addEventListener('timeupdate', function() {
+
+    // Al llegar a 1:00, vuelve a 0:20
+    if (birthdayMusic.currentTime >= FINAL) {
+
+        birthdayMusic.currentTime = INICIO;
+
+        birthdayMusic.play();
+    }
+
+});
+
+    /* ==========================================
+       CAMBIAR DE PANTALLA
+    ========================================== */
+
+    function nextScreen(number) {
+
+        document
+            .querySelectorAll('.screen')
+            .forEach(screen => {
+                screen.classList.remove('active');
+            });
+
+        setTimeout(() => {
+
+            document
+                .getElementById('screen' + number)
+                .classList.add('active');
+
+            if (number === 2) {
+                launchConfetti();
+            }
+
+        }, 450);
+    }
+
+
+    /* ==========================================
+       PÉTALOS CAYENDO
+    ========================================== */
+
+    function createPetal() {
+
+        const petal =
+            document.createElement('div');
+
+        petal.classList.add(
+            'falling-petal'
+        );
+
+        petal.style.left =
+            Math.random() * 100 + 'vw';
+
+        petal.style.animationDuration =
+            (6 + Math.random() * 6) + 's';
+
+        petal.style.opacity =
+            .3 + Math.random() * .5;
+
+        const size =
+            8 + Math.random() * 10;
+
+        petal.style.width =
+            size + 'px';
+
+        petal.style.height =
+            size * 1.7 + 'px';
+
+        document.body.appendChild(petal);
+
+        setTimeout(() => {
+            petal.remove();
+        }, 12000);
+
+    }
+
+    setInterval(
+        createPetal,
+        700
+    );
+
+
+    /* ==========================================
+       CONFETI
+    ========================================== */
+
+    function launchConfetti() {
+
+        const colors = [
+            '#f7c843',
+            '#ffe785',
+            '#9fbd6b',
+            '#e8b52c',
+            '#fff1a8'
+        ];
+
+        for (
+            let i = 0;
+            i < 90;
+            i++
+        ) {
+
+            setTimeout(() => {
+
+                const confetti =
+                    document.createElement('div');
+
+                confetti.classList.add(
+                    'confetti'
+                );
+
+                confetti.style.left =
+                    Math.random() * 100 + 'vw';
+
+                confetti.style.background =
+                    colors[
+                        Math.floor(
+                            Math.random()
+                            * colors.length
+                        )
+                    ];
+
+                confetti.style.animationDuration =
+                    (2.5 + Math.random() * 2)
+                    + 's';
+
+                confetti.style.transform =
+                    'rotate(' +
+                    Math.random() * 360 +
+                    'deg)';
+
+                document.body
+                    .appendChild(confetti);
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+
+            }, i * 20);
+
+        }
+
+    }
+
+</script>
+
+</body>
+</html>
